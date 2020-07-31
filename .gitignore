@@ -3,4 +3,4 @@ secrets*
 *.png
 /static/
 /env-msproul/
-.vscode
+.vscode/
