@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+IS_DEV = False
 
 import os
-import secrets_dev
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'what are you looking at? overwritten by secrets'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production! This is overridden by secrets_x.py
+DEBUG = False
 
 ALLOWED_HOSTS = ['165.227.54.63', 'localhost', 'www.middlesproul.com', 'middlesproul.com', 'dev.middlesproul.com']
     
@@ -73,18 +73,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'msproul.wsgi.application'
 
 
-# Database
+# Database; Overwritten by secrets_x.py.
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'middlesproul',
-        'USER': 'ivalex',
-        'PASSWORD': secrets_dev.db_pass,
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    
 }
 
 
@@ -133,4 +126,7 @@ CSRF_COOKIE_SECURE = True
 SECURE_REFERRER_POLICY = 'same-origin'
 
 # Always at the bottom of this file!
-from secrets_dev import *
+if IS_DEV:
+    from secrets_dev import *
+else:
+    from secrets_prod import *
