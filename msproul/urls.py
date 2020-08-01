@@ -26,7 +26,7 @@ except ImportError:
     raise Exception("A secrets_XXX.py file is required to run this project")
 
 urlpatterns = [
-    path('/admin/', admin.site.urls), # fixme with admin/
+    path('admin/', admin.site.urls), # fixme with admin/
     path(pki_val, read_pki.read_file),
     path('', landing_views.coming_soon)
 ]
